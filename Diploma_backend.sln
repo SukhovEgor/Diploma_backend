@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{E19CABF2-9772-45EE-8688-61442E2E0F36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{5CA5640A-33C5-4207-A347-756262CA5608}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E19CABF2-9772-45EE-8688-61442E2E0F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E19CABF2-9772-45EE-8688-61442E2E0F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E19CABF2-9772-45EE-8688-61442E2E0F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E19CABF2-9772-45EE-8688-61442E2E0F36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CA5640A-33C5-4207-A347-756262CA5608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CA5640A-33C5-4207-A347-756262CA5608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CA5640A-33C5-4207-A347-756262CA5608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CA5640A-33C5-4207-A347-756262CA5608}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {561204F3-8912-44AA-A1D9-1F7F08B4F3F4}
+	EndGlobalSection
+EndGlobal
