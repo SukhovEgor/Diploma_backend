@@ -1,13 +1,17 @@
 ﻿using MathNet.Numerics.Integration;
-
-using Domain.CalculationProbability;
+using Application.Interfaces;
+using Application.DTOs;
 
 namespace Application.UseCases
 {
     // TODO: Убрать потом Вывод в консоль
-    public class UseCaseCalculation
+    public class CalculationModule : ICalculationModule
     {
-        public static void GetRandomData(CalculationSettingsRequest calculationSettings)
+        public CalculationModule()
+        {
+        }
+
+        public void GetRandomData(CalculationSettingsRequest calculationSettings)
         {
 
             double[] fullTimeArr = FullTime(calculationSettings);
@@ -21,7 +25,7 @@ namespace Application.UseCases
 
         }
 
-        public static double[] MainRelayTime(CalculationSettingsRequest calculationSettings)
+        public double[] MainRelayTime(CalculationSettingsRequest calculationSettings)
         {
             var zRandom = new GaussRandom();
             double[] mainRelayTimeArr = new double[calculationSettings.ImplementationQuantity];
@@ -41,7 +45,7 @@ namespace Application.UseCases
             return mainRelayTimeArr;
         }
 
-        public static double[] FullTime(CalculationSettingsRequest calculationSettings)
+        public double[] FullTime(CalculationSettingsRequest calculationSettings)
         {
             var zRandom = new GaussRandom();
             double[] fullTime = new double[calculationSettings.ImplementationQuantity];
@@ -62,7 +66,7 @@ namespace Application.UseCases
 
             return fullTime;
         }
-        public static void TimeUROV(CalculationSettingsRequest calculationSettings)
+        public void TimeUROV(CalculationSettingsRequest calculationSettings)
         {
             var zRandom = new GaussRandom();
             double[] timeUROVArr = new double[calculationSettings.ImplementationQuantity];
@@ -91,7 +95,7 @@ namespace Application.UseCases
 
             }
         }
-        public static double GetProbability(CalculationSettingsRequest calculationSettings, double timeUROV)
+        public double GetProbability(CalculationSettingsRequest calculationSettings, double timeUROV)
         {
             double totalMean =
                 calculationSettings.MainRelayTime +
@@ -165,7 +169,7 @@ namespace Application.UseCases
             return probability;
         }
 
-        public static double SolveIntegral(double startPoint, double endPoint,
+        public double SolveIntegral(double startPoint, double endPoint,
             double mean, double standartDev)
         {
             double composite = DoubleExponentialTransformation.Integrate(x =>
