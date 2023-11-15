@@ -1,28 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-namespace Domain
+﻿namespace Domain.CalculationProbability
 {
-    internal class Calculations
+    /// <summary>
+    /// Параметры расчета, полученные от пользователя
+    /// </summary>
+    public class CalculationSettings
     {
-        /// <summary>
-        /// Уникальный идентификатор расчета
-        /// </summary>
-        public Guid CalculationId { get; set; } = Guid.NewGuid();
-
-        /// <summary>
-        /// Название расчета
-        /// </summary>
         public string Name { get; set; }
-        
-        /// <summary>
-        /// Время начала расчета
-        /// </summary>
-        public string CalculationStart { get; set; } = DateTime.Now.ToString("g");
 
-        /// <summary>
-        /// Времена
-        /// </summary>
         public double MainRelayTime { get; set; }
         public double IntermediateRelayTime { get; set; }
         public double CircuitBreakerTime { get; set; }
@@ -30,9 +14,6 @@ namespace Domain
         public double AdditionalUROVTime { get; set; }
         public double InputTime { get; set; }
 
-        /// <summary>
-        /// Стандартное отклонение
-        /// </summary>
         public double StdDevMainRelayTime { get; set; }
         public double StdDevIntermediateRelayTime { get; set; }
         public double StdDevCircuitBreakerTime { get; set; }
@@ -44,7 +25,5 @@ namespace Domain
         public double InitialValueUROV { get; set; }
         public double FinalValueUROV { get; set; }
         public double StepValue { get; set; }
-
-        public double[] RelayTimeArray { get; set; }
     }
 }
