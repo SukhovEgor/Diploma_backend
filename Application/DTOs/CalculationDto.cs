@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Domain.CalculationProbability
+namespace Application.DTOs
 {
-    public class Calculations
+    public class CalculationDto
     {
         /// <summary>
         /// Уникальный идентификатор расчета
         /// </summary>
-        public Guid CalculationId { get; set; } = Guid.NewGuid();
+        public string CalculationId { get; set; }
 
         /// <summary>
         /// Название расчета
@@ -40,7 +41,8 @@ namespace Domain.CalculationProbability
         public double StdDevAdditionalTime { get; set; }
         public double StdDevAdditionalUROVTime { get; set; }
         public double StdDevInputTime { get; set; }
-
+        
+        [Range(1, 100000)]
         public int ImplementationQuantity { get; set; }
         public double InitialValueUROV { get; set; }
         public double FinalValueUROV { get; set; }

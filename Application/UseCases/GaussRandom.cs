@@ -1,4 +1,4 @@
-﻿namespace BLL.Service
+﻿namespace Application.UseCases
 {
     public class GaussRandom
     {
