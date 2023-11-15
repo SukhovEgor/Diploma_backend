@@ -1,4 +1,4 @@
-﻿namespace Server.Dto
+﻿namespace Application.DTOs
 {
     public class CalculationProbabilityDto
     {

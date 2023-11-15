@@ -3,6 +3,7 @@ using System;
 
 namespace BLL.Service
 {
+    // TODO: Убрать потом Вывод в консоль
     public class Calculation
     {
         public static void GetRandomData(CalculationSetting calculationSetting)
@@ -69,7 +70,7 @@ namespace BLL.Service
             var step = calculationSetting.StepValue;
 
             for (var timeUROV = calculationSetting.InitialValueUROV;
-                timeUROV >= 0.050; timeUROV -= step)
+                timeUROV >= calculationSetting.FinalValueUROV; timeUROV -= step)
             {
                 var probability = GetProbability(calculationSetting, timeUROV);
                 Console.WriteLine($"Вероятность излишней работы УРОВ " +

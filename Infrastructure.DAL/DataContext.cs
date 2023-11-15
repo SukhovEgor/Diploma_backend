@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Server.Models;
+using Infrastructure.DAL.Models;
 
-namespace Server.Data
+namespace Infrastructure.DAL
 {
     public class DataContext : DbContext
     {

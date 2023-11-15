@@ -1,4 +1,4 @@
-﻿namespace Server.Models
+﻿namespace Infrastructure.DAL.Entities
 {
     public class CalculationProbability
     {
