@@ -1,21 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Application.DTOs
+namespace Infrastructure.DAL
 {
-    public class CalculationResultDto
+    /// <summary>
+    /// Результаты расчета для хранения в БД
+    /// </summary>
+    [Table("CalculationResult")]
+    public class CalculationResultEntity
     {
         /// <summary>
         /// Уникальный идентификатор расчета
         /// </summary>
+        [Key, Column(Order = 0)]
         public Guid CalculationId { get; set; }
 
         /// <summary>
         /// Номер реализации
         /// </summary>
+        [Key, Column(Order = 1)]
         public int ImplementationId { get; set; }
 
         /// <summary>
@@ -33,15 +36,9 @@ namespace Application.DTOs
         /// </summary>
         public double[] UROVTimeArray { get; set; }
 
-
-        public CalculationResultDto(Guid calculationId, int implementationId,
-            double urovValue, double probabilityValue, double[] urovTimeArray)
-        {
-            CalculationId = calculationId;
-            ImplementationId = implementationId;
-            UROVValue = urovValue;
-            ProbabilityValue = probabilityValue;
-            UROVTimeArray = urovTimeArray;
-        }
+        /// <summary>
+        /// Ссылка на расчет
+        /// </summary>
+        public CalculationEntity? Calculation { get; set; }
     }
 }

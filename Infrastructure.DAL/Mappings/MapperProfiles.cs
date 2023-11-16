@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-
-using Infrastructure.DAL.Entities;
+﻿using Application.DTOs;
+using AutoMapper;
 
 namespace Infrastructure.DAL.Mappings
 {
@@ -8,8 +7,8 @@ namespace Infrastructure.DAL.Mappings
     {
         public MapperProfiles()
         {
-            //CreateMap<CalculationProbability, CalculationProbabilityDto>();
-            //CreateMap<ImplementationProbability, ImplementationProbabilityDto>();
+            CreateMap<CalculationEntity, CalculationDto>().ReverseMap();
+            CreateMap<CalculationResultEntity, CalculationResultDto>().ReverseMap();
         }
     }
 }

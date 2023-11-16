@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace Application.DTOs
+namespace Infrastructure.DAL
 {
-    public class CalculationDto
+    [Table("Calculation")]
+    public class CalculationEntity
     {
         /// <summary>
         /// Уникальный идентификатор расчета
         /// </summary>
-        public Guid CalculationId { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         /// <summary>
         /// Название расчета
@@ -41,13 +44,17 @@ namespace Application.DTOs
         public double StdDevAdditionalTime { get; set; }
         public double StdDevAdditionalUROVTime { get; set; }
         public double StdDevInputTime { get; set; }
-        
-        [Range(1, 100000)]
+
         public int ImplementationQuantity { get; set; }
         public double InitialValueUROV { get; set; }
         public double FinalValueUROV { get; set; }
         public double StepValue { get; set; }
 
         public double[] RelayTimeArray { get; set; }
+
+        /// <summary>
+        /// Внешний ключ на результаты расчета
+        /// </summary>
+        public List<CalculationResultEntity> CalculationResults { get; set; } = new();
     }
 }
