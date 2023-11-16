@@ -11,7 +11,7 @@ namespace Application.DTOs
         /// <summary>
         /// Уникальный идентификатор расчета
         /// </summary>
-        public Guid CalculationId { get; set; }
+        public string CalculationId { get; set; }
 
         /// <summary>
         /// Номер реализации
@@ -34,7 +34,7 @@ namespace Application.DTOs
         public double[] UROVTimeArray { get; set; }
 
 
-        public CalculationResultDto(Guid calculationId, int implementationId,
+        public CalculationResultDto(string calculationId, int implementationId,
             double urovValue, double probabilityValue, double[] urovTimeArray)
         {
             CalculationId = calculationId;

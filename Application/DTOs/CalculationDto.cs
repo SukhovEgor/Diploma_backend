@@ -20,7 +20,7 @@ namespace Application.DTOs
         /// <summary>
         /// Время начала расчета
         /// </summary>
-        public string CalculationStart { get; set; } = DateTime.Now.ToString("g");
+        public string CalculationStart { get; set; } 
 
         /// <summary>
         /// Времена

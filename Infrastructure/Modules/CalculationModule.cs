@@ -11,20 +11,6 @@ namespace Application.UseCases
         {
         }
 
-        public void GetRandomData(CalculationSettingsRequest calculationSettings)
-        {
-
-            double[] fullTimeArr = FullTime(calculationSettings);
-            Console.WriteLine("fullTimeArr");
-            foreach (double dbl in fullTimeArr)
-            {
-                Console.WriteLine(dbl);
-            }
-
-            TimeUROV(calculationSettings);
-
-        }
-
         public double[] MainRelayTime(CalculationSettingsRequest calculationSettings)
         {
             var zRandom = new GaussRandom();
@@ -45,7 +31,7 @@ namespace Application.UseCases
             return mainRelayTimeArr;
         }
 
-        public double[] FullTime(CalculationSettingsRequest calculationSettings)
+        public double[] GetFullTime(CalculationSettingsRequest calculationSettings)
         {
             var zRandom = new GaussRandom();
             double[] fullTime = new double[calculationSettings.ImplementationQuantity];
@@ -66,34 +52,25 @@ namespace Application.UseCases
 
             return fullTime;
         }
-        public void TimeUROV(CalculationSettingsRequest calculationSettings)
+        public double[] GetTimeUROV(CalculationSettingsRequest calculationSettings, double timeUROV)
         {
             var zRandom = new GaussRandom();
             double[] timeUROVArr = new double[calculationSettings.ImplementationQuantity];
             double[] mainRelayTimeArr = MainRelayTime(calculationSettings);
 
-            var step = calculationSettings.StepValue;
-
-            for (var timeUROV = calculationSettings.InitialValueUROV;
-                timeUROV >= calculationSettings.FinalValueUROV; timeUROV -= step)
+            for (int i = 0; i < calculationSettings.ImplementationQuantity; i++)
             {
-                var probability = GetProbability(calculationSettings, timeUROV);
-                Console.WriteLine($"Вероятность излишней работы УРОВ " +
-                    $"{Math.Round(100 * probability, 2)}, при выдержке времени {Math.Round(1000 * timeUROV, 2)}");
-                for (int i = 0; i < calculationSettings.ImplementationQuantity; i++)
-                {
-                    double tmpTime =
-                        zRandom.Next(calculationSettings.InputTime,
-                            calculationSettings.InputTime *
-                            calculationSettings.StdDevInputTime)
-                        + zRandom.Next(calculationSettings.AdditionalTime,
-                            calculationSettings.AdditionalTime *
-                            calculationSettings.StdDevAdditionalTime);
+                double tmpTime =
+                    zRandom.Next(calculationSettings.InputTime,
+                        calculationSettings.InputTime *
+                        calculationSettings.StdDevInputTime)
+                    + zRandom.Next(calculationSettings.AdditionalTime,
+                        calculationSettings.AdditionalTime *
+                        calculationSettings.StdDevAdditionalTime);
 
-                    timeUROVArr[i] = Math.Round(mainRelayTimeArr[i] + tmpTime + timeUROV, 6); ;
-                }
-
+                timeUROVArr[i] = Math.Round(mainRelayTimeArr[i] + tmpTime + timeUROV, 6); ;
             }
+            return timeUROVArr;
         }
         public double GetProbability(CalculationSettingsRequest calculationSettings, double timeUROV)
         {
@@ -177,5 +154,35 @@ namespace Application.UseCases
                 (standartDev * Math.Sqrt(2 * Math.PI)), startPoint, endPoint, 1e-5);
             return composite;
         }
+        /*
+        public void TimeUROV(CalculationSettingsRequest calculationSettings)
+        {
+            var zRandom = new GaussRandom();
+            double[] timeUROVArr = new double[calculationSettings.ImplementationQuantity];
+            double[] mainRelayTimeArr = MainRelayTime(calculationSettings);
+
+            var step = calculationSettings.StepValue;
+
+            for (var timeUROV = calculationSettings.InitialValueUROV;
+                timeUROV >= calculationSettings.FinalValueUROV; timeUROV -= step)
+            {
+                var probability = GetProbability(calculationSettings, timeUROV);
+                Console.WriteLine($"Вероятность излишней работы УРОВ " +
+                    $"{Math.Round(100 * probability, 2)}, при выдержке времени {Math.Round(1000 * timeUROV, 2)}");
+                for (int i = 0; i < calculationSettings.ImplementationQuantity; i++)
+                {
+                    double tmpTime =
+                        zRandom.Next(calculationSettings.InputTime,
+                            calculationSettings.InputTime *
+                            calculationSettings.StdDevInputTime)
+                        + zRandom.Next(calculationSettings.AdditionalTime,
+                            calculationSettings.AdditionalTime *
+                            calculationSettings.StdDevAdditionalTime);
+
+                    timeUROVArr[i] = Math.Round(mainRelayTimeArr[i] + tmpTime + timeUROV, 6); ;
+                }
+
+            }
+        }*/
     }
 }

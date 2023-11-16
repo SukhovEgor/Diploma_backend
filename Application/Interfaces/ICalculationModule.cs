@@ -3,12 +3,10 @@ namespace Application.Interfaces
 {
     public interface ICalculationModule
     {
-        void GetRandomData(CalculationSettingsRequest calculationSettings);
-
         double[] MainRelayTime(CalculationSettingsRequest calculationSettings);
 
-        double[] FullTime(CalculationSettingsRequest calculationSettings);
-        void TimeUROV(CalculationSettingsRequest calculationSettings);
+        double[] GetFullTime(CalculationSettingsRequest calculationSettings);
+        double[] GetTimeUROV(CalculationSettingsRequest calculationSettings, double timeUROV);
         double GetProbability(CalculationSettingsRequest calculationSettings, double timeUROV);
 
         double SolveIntegral(double startPoint, double endPoint,
