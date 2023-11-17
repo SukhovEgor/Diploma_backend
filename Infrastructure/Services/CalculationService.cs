@@ -48,12 +48,12 @@ namespace Infrastructure.Services
                 AdditionalUROVTime = calculationSettings.AdditionalUROVTime / 1000,
                 InputTime = calculationSettings.InputTime / 1000,
 
-                StdDevMainRelayTime = calculationSettings.StdDevMainRelayTime / 300,
-                StdDevIntermediateRelayTime = calculationSettings.StdDevIntermediateRelayTime / 300,
-                StdDevCircuitBreakerTime = calculationSettings.StdDevCircuitBreakerTime / 300,
-                StdDevAdditionalTime = calculationSettings.StdDevAdditionalTime / 300,
-                StdDevAdditionalUROVTime = calculationSettings.StdDevAdditionalUROVTime / 300,
-                StdDevInputTime = calculationSettings.StdDevInputTime / 300,
+                StdDevMainRelayTime = Math.Round(calculationSettings.StdDevMainRelayTime / 300, 4),
+                StdDevIntermediateRelayTime = Math.Round(calculationSettings.StdDevIntermediateRelayTime / 300, 4),
+                StdDevCircuitBreakerTime = Math.Round(calculationSettings.StdDevCircuitBreakerTime / 300, 4) ,
+                StdDevAdditionalTime = Math.Round(calculationSettings.StdDevAdditionalTime / 300, 4),
+                StdDevAdditionalUROVTime = Math.Round(calculationSettings.StdDevAdditionalUROVTime / 300, 4),
+                StdDevInputTime = Math.Round(calculationSettings.StdDevInputTime / 300, 4),
 
                 ImplementationQuantity = calculationSettings.ImplementationQuantity,
                 InitialValueUROV = calculationSettings.InitialValueUROV / 1000,
@@ -75,7 +75,7 @@ namespace Infrastructure.Services
                 Console.WriteLine($"Вероятность излишней работы УРОВ " +
                     $"{Math.Round(100 * probability, 2)}, при выдержке времени {Math.Round(1000 * timeUROV, 2)}");
                 var UROVTimeArray = _calculationModule.GetTimeUROV(calculation, timeUROV);
-                var calcResult = new CalculationResult(calculation.Id, count, timeUROV, probability, UROVTimeArray);
+                var calcResult = new CalculationResult(calculation.Id, count, Math.Round(timeUROV, 3), Math.Round(probability, 6), UROVTimeArray);
                 calcResultInitial.Add(calcResult);
             }
             await _calculationResultRepository.AddCalculationResults(calcResultInitial);

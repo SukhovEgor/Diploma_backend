@@ -50,5 +50,42 @@ namespace Server.Controllers
             };
             return Ok(response);
         }
+        
+        /// <summary>
+        /// Получить результаты определенного расчета
+        /// </summary>  
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetCalculationResult/{id}")]
+        public async Task<IActionResult> GetCalculationById(string? id)
+        {
+            var calcResultInit = _calculationService.GetCalculationById(id);
+            List<CalculationResult> calculationResults = new();
+            
+            foreach (var calc in calcResultInit)
+            {
+                calculationResults.Add(calc);
+            }
+            var response = new CalculationResultInfoResponse()
+            {
+                CalculationResults = _mapper.Map<List<CalculationResult>, List<CalculationResultDto>>(calculationResults)
+            };
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Удалить определенный расчет
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("DeleteCalculations/{id}")]
+        public async Task<IActionResult> DeleteCalculationsById(string? id)
+        {
+            await _calculationService.DeleteCalculationById(id);
+            return Ok();
+        }
+
     }
 }

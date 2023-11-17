@@ -10,6 +10,7 @@ namespace Server
         {
             CreateMap<Calculations, CalculationDto>().ReverseMap();
             CreateMap<CalculationSettingsRequest, CalculationSettings>().ReverseMap();
+            CreateMap<CalculationResult, CalculationResultDto>();
         }
     }
 }
