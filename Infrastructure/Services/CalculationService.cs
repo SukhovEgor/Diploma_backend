@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces;
-using Application.DTOs;
 using System.ComponentModel.DataAnnotations;
 using Domain.CalculationProbability;
 using Application.UseCases;
@@ -21,9 +20,9 @@ namespace Infrastructure.Services
             await _calculationResultRepository.DeleteCalculationsById(id);
         }
 
-        public IEnumerable<CalculationResultDto> GetCalculationById(string id)
+        public IEnumerable<CalculationResult> GetCalculationById(string id)
         {
-            IEnumerable<CalculationResultDto> calcResultInitial = 
+            IEnumerable<CalculationResult> calcResultInitial = 
                 _calculationResultRepository.GetResultInitialById(id).Result;
             if (calcResultInitial.ToList().Count == 0)
             {
@@ -32,14 +31,14 @@ namespace Infrastructure.Services
             return calcResultInitial;
         }
 
-        public List<CalculationDto> GetCalculations()
+        public List<Calculations> GetCalculations()
         {
             return _calculationResultRepository.GetCalculations().Result;
         }
 
-        public async Task StartCalculation(CalculationSettingsRequest calculationSettings)
+        public async Task StartCalculation(CalculationSettings calculationSettings)
         {
-            CalculationDto calculation = new()
+            Calculations calculation = new()
             {
                 Name = calculationSettings.Name,
                 MainRelayTime = calculationSettings.MainRelayTime / 1000,
@@ -57,24 +56,26 @@ namespace Infrastructure.Services
                 StdDevInputTime = calculationSettings.StdDevInputTime / 300,
 
                 ImplementationQuantity = calculationSettings.ImplementationQuantity,
-                InitialValueUROV = calculationSettings.InitialValueUROV,
-                FinalValueUROV = calculationSettings.FinalValueUROV,
+                InitialValueUROV = calculationSettings.InitialValueUROV / 1000,
+                FinalValueUROV = calculationSettings.FinalValueUROV / 1000,
                 StepValue = calculationSettings.StepValue / 1000
             };
             Console.WriteLine("Start Calculation");
-            calculation.RelayTimeArray = _calculationModule.GetFullTime(calculationSettings);
+            calculation.RelayTimeArray = _calculationModule.GetFullTime(calculation);
             await _calculationResultRepository.AddCalculation(calculation);
 
-            List<CalculationResultDto> calcResultInitial = new();
+            List<CalculationResult> calcResultInitial = new();
             int count = 0;
-            var step = calculationSettings.StepValue;
-            for (var timeUROV = calculationSettings.InitialValueUROV;
-                timeUROV >= calculationSettings.FinalValueUROV; timeUROV -= step)
+            var step = calculation.StepValue;
+            for (var timeUROV = calculation.InitialValueUROV;
+                timeUROV >= calculation.FinalValueUROV; timeUROV -= step)
             {
                 count++;
-                var probability = _calculationModule.GetProbability(calculationSettings, timeUROV);
-                var UROVTimeArray = _calculationModule.GetTimeUROV(calculationSettings, timeUROV);
-                var calcResult = new CalculationResultDto(calculation.CalculationId, count, timeUROV, probability, UROVTimeArray);
+                var probability = _calculationModule.GetProbability(calculation, timeUROV);
+                Console.WriteLine($"Вероятность излишней работы УРОВ " +
+                    $"{Math.Round(100 * probability, 2)}, при выдержке времени {Math.Round(1000 * timeUROV, 2)}");
+                var UROVTimeArray = _calculationModule.GetTimeUROV(calculation, timeUROV);
+                var calcResult = new CalculationResult(calculation.Id, count, timeUROV, probability, UROVTimeArray);
                 calcResultInitial.Add(calcResult);
             }
             await _calculationResultRepository.AddCalculationResults(calcResultInitial);

@@ -1,6 +1,6 @@
-﻿using Application.DTOs;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using AutoMapper;
+using Domain.CalculationProbability;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -15,25 +15,24 @@ namespace Infrastructure.DAL.Repositories
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CalculationEntity, CalculationDto>().ReverseMap();
-                cfg.CreateMap<CalculationResultEntity, CalculationResultDto>().ReverseMap();
+                cfg.CreateMap<CalculationEntity, Calculations>().ReverseMap();
+                cfg.CreateMap<CalculationResultEntity, CalculationResult>().ReverseMap();
             });
             _context = context;
             _mapper = new Mapper(config);
         }
 
-        public async Task AddCalculation(CalculationDto calculations)
+        public async Task AddCalculation(Calculations calculations)
         {
-            var calculation = _mapper.Map<CalculationEntity>(calculations);
             _context.Calculations.Add(_mapper.Map<CalculationEntity>(calculations));
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddCalculationResults(IEnumerable<CalculationResultDto> calculationResults)
+        public async Task AddCalculationResults(IEnumerable<CalculationResult> calculationResults)
         {
             foreach (var calculationResult in calculationResults)
             {
-                await _context.CalculationResults.AddAsync(_mapper.Map<CalculationResultDto, CalculationResultEntity>(calculationResult));
+                await _context.CalculationResults.AddAsync(_mapper.Map<CalculationResult, CalculationResultEntity>(calculationResult));
             }
             await _context.SaveChangesAsync();
         }
@@ -51,29 +50,27 @@ namespace Infrastructure.DAL.Repositories
             _context.SaveChanges();
         }
 
-        public async Task<List<CalculationDto>> GetCalculations()
+        public async Task<List<Calculations>> GetCalculations()
         {
-            throw new NotImplementedException();
-            
             var calculationsEntity = _context.Calculations.OrderByDescending(c => c.CalculationStart).ToList();
-            List<CalculationDto> calculations = _mapper.Map<List<CalculationDto>>(calculationsEntity);
+            List<Calculations> calculations = _mapper.Map<List<Calculations>>(calculationsEntity);
             return calculations;
         }
 
-        public async Task<IEnumerable<CalculationResultDto>> GetResultInitialById(string? id)
+        public async Task<IEnumerable<CalculationResult>> GetResultInitialById(string? id)
         {
-            List<CalculationResultDto> calculationResults = new();
+            List<CalculationResult> calculationResults = new();
             var calculationResult = (from calculations in _context.CalculationResults
                                     where calculations.CalculationId.ToString() == id
                                     select calculations).ToList();
-            calculationResults.AddRange(_mapper.Map<List<CalculationResultDto>>(calculationResult));
-            return (IEnumerable<CalculationResultDto>)calculationResults;
+            calculationResults.AddRange(_mapper.Map<List<CalculationResult>>(calculationResult));
+            return (IEnumerable<CalculationResult>)calculationResults;
         }
 
-        public async Task UpdateCalculation(CalculationDto calculations)
+        public async Task UpdateCalculation(Calculations calculations)
         {
             _context.ChangeTracker.Clear();
-            CalculationEntity calculation1 = _context.Calculations.AsNoTracking().FirstOrDefault(u => u.Id == calculations.CalculationId);
+            CalculationEntity calculation1 = _context.Calculations.AsNoTracking().FirstOrDefault(u => u.Id == calculations.Id);
             string endTime = DateTime.Now.ToString("g");
             _context.Calculations.Update(calculation1);
             await _context.SaveChangesAsync();

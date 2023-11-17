@@ -1,7 +1,11 @@
+using Application.Interfaces;
+using Application.UseCases;
+using Infrastructure.DAL;
+using Infrastructure.DAL.Repositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
-using Server.Data;
-using Server.Interfaces;
-using Server.Repository;
+using Server;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,15 +13,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+var assembly = Assembly.GetAssembly(typeof(MappingProfile));
+builder.Services.AddAutoMapper(assembly);
 
-builder.Services.AddScoped<ICalculationProbabilityRepository, CalculationProbabilityRepository>();
-builder.Services.AddScoped<IImplementationProbabilityRepository, ImplementationProbabilityRepository>();
+builder.Services.AddScoped<ICalculationResultRepository, CalculationResultRepository>();
+builder.Services.AddScoped<ICalculationService, CalculationService>();
+builder.Services.AddScoped<ICalculationModule, CalculationModule>();
 
-builder.Services.AddDbContext<DataContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection), ServiceLifetime.Transient);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

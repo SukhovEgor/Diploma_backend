@@ -1,14 +1,14 @@
-﻿using Application.DTOs;
+﻿using Domain.CalculationProbability;
 
 namespace Application.Interfaces
 {
     public interface ICalculationResultRepository
     {
-        Task<List<CalculationDto>> GetCalculations();
-        Task<IEnumerable<CalculationResultDto>> GetResultInitialById(string? id);
-        Task AddCalculation(CalculationDto calculations);
-        Task AddCalculationResults(IEnumerable<CalculationResultDto> calculationResults);
-        Task UpdateCalculation(CalculationDto calculations);
+        Task<List<Calculations>> GetCalculations();
+        Task<IEnumerable<CalculationResult>> GetResultInitialById(string? id);
+        Task AddCalculation(Calculations calculations);
+        Task AddCalculationResults(IEnumerable<CalculationResult> calculationResults);
+        Task UpdateCalculation(Calculations calculations);
         Task DeleteCalculationsById(string? id);
     }
 }

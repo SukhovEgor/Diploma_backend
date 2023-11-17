@@ -11,13 +11,14 @@ namespace Infrastructure.DAL
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CalculationEntity>().HasKey(c => new { c.Id });
-            modelBuilder.Entity<CalculationResultEntity>().HasKey(r => new { r.CalculationId });
+            modelBuilder.Entity<CalculationResultEntity>().HasKey(r => new { r.CalculationId, r.ImplementationId });
         }
     }
 }

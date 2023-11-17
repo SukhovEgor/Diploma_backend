@@ -23,7 +23,7 @@ namespace Infrastructure.DAL
         /// <summary>
         /// Время начала расчета
         /// </summary>
-        public string CalculationStart { get; set; } 
+        public string? CalculationStart { get; set; } 
 
         /// <summary>
         /// Времена

@@ -10,7 +10,7 @@ namespace Application.DTOs
         /// <summary>
         /// Уникальный идентификатор расчета
         /// </summary>
-        public Guid CalculationId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Название расчета

@@ -9,7 +9,7 @@ namespace Domain.CalculationProbability
         /// <summary>
         /// Уникальный идентификатор расчета
         /// </summary>
-        public Guid CalculationId { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         /// <summary>
         /// Название расчета

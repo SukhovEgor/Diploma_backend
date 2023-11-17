@@ -1,6 +1,6 @@
 ﻿using MathNet.Numerics.Integration;
 using Application.Interfaces;
-using Application.DTOs;
+using Domain.CalculationProbability;
 
 namespace Application.UseCases
 {
@@ -11,7 +11,7 @@ namespace Application.UseCases
         {
         }
 
-        public double[] MainRelayTime(CalculationSettingsRequest calculationSettings)
+        public double[] MainRelayTime(Calculations calculationSettings)
         {
             var zRandom = new GaussRandom();
             double[] mainRelayTimeArr = new double[calculationSettings.ImplementationQuantity];
@@ -31,7 +31,7 @@ namespace Application.UseCases
             return mainRelayTimeArr;
         }
 
-        public double[] GetFullTime(CalculationSettingsRequest calculationSettings)
+        public double[] GetFullTime(Calculations calculationSettings)
         {
             var zRandom = new GaussRandom();
             double[] fullTime = new double[calculationSettings.ImplementationQuantity];
@@ -52,7 +52,7 @@ namespace Application.UseCases
 
             return fullTime;
         }
-        public double[] GetTimeUROV(CalculationSettingsRequest calculationSettings, double timeUROV)
+        public double[] GetTimeUROV(Calculations calculationSettings, double timeUROV)
         {
             var zRandom = new GaussRandom();
             double[] timeUROVArr = new double[calculationSettings.ImplementationQuantity];
@@ -72,7 +72,7 @@ namespace Application.UseCases
             }
             return timeUROVArr;
         }
-        public double GetProbability(CalculationSettingsRequest calculationSettings, double timeUROV)
+        public double GetProbability(Calculations calculationSettings, double timeUROV)
         {
             double totalMean =
                 calculationSettings.MainRelayTime +
