@@ -29,6 +29,7 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+app.UseCors(builder => builder.AllowAnyMethod().WithOrigins("http://localhost:3000").AllowAnyHeader().AllowCredentials());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
