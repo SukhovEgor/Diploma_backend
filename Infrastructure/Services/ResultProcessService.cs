@@ -7,10 +7,16 @@ namespace Infrastructure.Services
 {
     public class ResultProcessService : IResultProcessService
     {
-        public List<HistogramData> Processing(List<double> processedResults)
+        //public List<HistogramData> Processing(List<double> processedResults)
+        //{
+        //    ResultProcessed histogramData = new();
+        //    histogramData.GetStatistic(processedResults);
+        //    return histogramData.HistogramData;
+        //}
+        public List<HistogramData> Processing(Calculations calculation)
         {
             ResultProcessed histogramData = new();
-            histogramData.GetStatistic(processedResults);
+            histogramData.GetStatistic(calculation.RelayTimeArray.ToList());
             return histogramData.HistogramData;
         }
         public List<CalculationResultData> Processing(List<CalculationResultDto> calculationResults)

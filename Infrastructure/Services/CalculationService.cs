@@ -33,7 +33,10 @@ namespace Infrastructure.Services
             }
             return calcResultInitial;
         }
-
+        public Calculations GetCalculationInfoById(string id)
+        {
+            return _calculationResultRepository.GetCalculations().Result.First(c => c.Id.ToString() == id);
+        }
         public List<Calculations> GetCalculations()
         {
             return _calculationResultRepository.GetCalculations().Result;

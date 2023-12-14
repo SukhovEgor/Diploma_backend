@@ -35,10 +35,10 @@ namespace Domain.ProcessedResult
 
         public List<HistogramData> GetStatistic(List<double> values)
         {
-            int intervalCount = Convert.ToInt32(Math.Log10(values.Count) + Math.Sqrt(values.Count));
+            int intervalCount = Convert.ToInt32(Math.Log10(values.Count) + Math.Sqrt(values.Count) + 10);
             Maximum = values.Max();
             Minimum = values.Min();
-            Mean = Math.Round(values.Average(), 2);
+            Mean = Math.Round(values.Average(), 4);
             double dispersion = values.Sum(a => (a - Mean) * (a - Mean)) / (values.Count - 1);
             StD = Math.Sqrt(dispersion);
             double step = (Maximum - Minimum) / intervalCount;
@@ -52,8 +52,8 @@ namespace Domain.ProcessedResult
                 count += (from double v in values
                           where v >= first && v <= sec
                           select v).Count();
-                height = Math.Round((Convert.ToDouble(count) / Convert.ToDouble(values.Count)) * 100, 2);
-                HistogramData.Add(new HistogramData() { Interval = $"{Math.Round(first, 2)} - {Math.Round(sec, 2)}", Height = height });
+                height = Math.Round((Convert.ToDouble(count) / Convert.ToDouble(values.Count)) * 100, 4);
+                HistogramData.Add(new HistogramData() { Interval = $"{Math.Round(first, 4)} - {Math.Round(sec, 4)}", Height = height });
             }
             return HistogramData;
         }

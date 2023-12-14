@@ -7,6 +7,7 @@ namespace Application.Interfaces
     {
         public Task StartCalculation(CalculationSettings calculationSettings);
         public List<Calculations> GetCalculations();
+        public Calculations GetCalculationInfoById(string id);
         public IEnumerable<CalculationResult> GetCalculationById(string id);
         public Task DeleteCalculationById(string id);
 

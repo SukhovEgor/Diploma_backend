@@ -6,7 +6,7 @@ namespace Application.Interfaces
 {
     public interface IResultProcessService
     {
-        List<HistogramData> Processing(List<double> processedResults);
+        List<HistogramData> Processing(Calculations calculation);
         List<CalculationResultData> Processing(List<CalculationResultDto> calculationResults);
 
     }

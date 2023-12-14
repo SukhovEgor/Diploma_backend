@@ -64,17 +64,19 @@ namespace Server.Controllers
         public async Task<IActionResult> GetCalculationById(string? id)
         {
             var calcResultInit = _calculationService.GetCalculationById(id);
-            List<CalculationResult> calculationResults = new();
+            Calculations calculations = _calculationService.GetCalculationInfoById(id);
+            List<CalculationResult> calculationResultsInfo = new();
             List<CalculationResultDto> calculationResultDto = new();
             foreach (var calc in calcResultInit)
             {
-                calculationResults.Add(calc);
+                calculationResultsInfo.Add(calc);
             }
-            
+
             var response = new CalculationResultInfoResponse()
             {
-                ProcessedResult = _resultProcessService.Processing
-                (_mapper.Map<List<CalculationResult>, List<CalculationResultDto>>(calculationResults))
+                MainTimeHistogramData = _resultProcessService.Processing(calculations),
+                CalculationResults = _resultProcessService.Processing
+                (_mapper.Map<List<CalculationResult>, List<CalculationResultDto>>(calculationResultsInfo))
             };
             return Ok(response);
         }
