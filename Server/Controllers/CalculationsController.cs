@@ -2,8 +2,9 @@
 using Application.Interfaces;
 using AutoMapper;
 using Domain.CalculationProbability;
+using Domain.ProcessedResult;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Diagnostics;
 
 namespace Server.Controllers
 {
@@ -12,11 +13,13 @@ namespace Server.Controllers
     public class CalculationsController : ControllerBase
     {
         private readonly ICalculationService _calculationService;
+        private readonly IResultProcessService _resultProcessService;
         private readonly IMapper _mapper;
 
-        public CalculationsController(ICalculationService calculationService,IMapper mapper)
+        public CalculationsController(ICalculationService calculationService, IResultProcessService resultProcessService, IMapper mapper)
         {
             _calculationService = calculationService;
+            _resultProcessService = resultProcessService;
             _mapper = mapper;
         }
         /// <summary>
@@ -62,14 +65,16 @@ namespace Server.Controllers
         {
             var calcResultInit = _calculationService.GetCalculationById(id);
             List<CalculationResult> calculationResults = new();
-            
+            List<CalculationResultDto> calculationResultDto = new();
             foreach (var calc in calcResultInit)
             {
                 calculationResults.Add(calc);
             }
+            
             var response = new CalculationResultInfoResponse()
             {
-                CalculationResults = _mapper.Map<List<CalculationResult>, List<CalculationResultDto>>(calculationResults)
+                ProcessedResult = _resultProcessService.Processing
+                (_mapper.Map<List<CalculationResult>, List<CalculationResultDto>>(calculationResults))
             };
             return Ok(response);
         }

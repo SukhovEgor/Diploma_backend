@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.CalculationProbability;
+using Domain.ProcessedResult;
 
 namespace Application.DTOs
 {
-    public class CalculationResultDto
+    public class CalculationResultDto 
     {
         /// <summary>
         /// Уникальный идентификатор расчета
         /// </summary>
-        public Guid CalculationId { get; set; }
+        //public Guid CalculationId { get; set; }
 
         /// <summary>
         /// Номер реализации
@@ -33,15 +35,18 @@ namespace Application.DTOs
         /// </summary>
         public double[] UROVTimeArray { get; set; }
 
+        //public List<HistogramData>? HistogramData { get; set; } = new();
 
-        public CalculationResultDto(Guid calculationId, int implementationId,
-            double urovValue, double probabilityValue, double[] urovTimeArray)
+        
+        public CalculationResultDto(int implementationId,
+            double urovValue, double probabilityValue, double[] urovTimeArray/*, List<HistogramData> histogramData*/)
         {
-            CalculationId = calculationId;
+            //CalculationId = calculationId;
             ImplementationId = implementationId;
             UROVValue = urovValue;
             ProbabilityValue = probabilityValue;
             UROVTimeArray = urovTimeArray;
+            //HistogramData = histogramData;
         }
     }
 }

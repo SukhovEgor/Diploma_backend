@@ -9,11 +9,13 @@ namespace Infrastructure.Services
     {
         private readonly ICalculationResultRepository _calculationResultRepository;
         private readonly ICalculationModule _calculationModule;
+        private readonly IResultProcessService _resultProcessService;
 
-        public CalculationService(ICalculationResultRepository calculationResultRepository, ICalculationModule calculationModule)
+        public CalculationService(ICalculationResultRepository calculationResultRepository, ICalculationModule calculationModule, IResultProcessService resultProcessService)
         {
             _calculationResultRepository = calculationResultRepository;
             _calculationModule = calculationModule;
+            _resultProcessService = resultProcessService;
         }
         public async Task DeleteCalculationById(string id)
         {
@@ -24,6 +26,7 @@ namespace Infrastructure.Services
         {
             IEnumerable<CalculationResult> calcResultInitial = 
                 _calculationResultRepository.GetResultInitialById(id).Result;
+
             if (calcResultInitial.ToList().Count == 0)
             {
                 throw new Exception($"Ошибка. Расчета с ID {id} не существует.");

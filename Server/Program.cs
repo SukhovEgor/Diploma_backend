@@ -1,3 +1,4 @@
+using Application.DTOs;
 using Application.Interfaces;
 using Application.UseCases;
 using Infrastructure.DAL;
@@ -19,6 +20,7 @@ builder.Services.AddAutoMapper(assembly);
 builder.Services.AddScoped<ICalculationResultRepository, CalculationResultRepository>();
 builder.Services.AddScoped<ICalculationService, CalculationService>();
 builder.Services.AddScoped<ICalculationModule, CalculationModule>();
+builder.Services.AddScoped<IResultProcessService, ResultProcessService>();
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection), ServiceLifetime.Transient);
