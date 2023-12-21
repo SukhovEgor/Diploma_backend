@@ -9,13 +9,14 @@ namespace Infrastructure.Services
     {
         private readonly ICalculationResultRepository _calculationResultRepository;
         private readonly ICalculationModule _calculationModule;
-        private readonly IResultProcessService _resultProcessService;
+        private readonly IUserRepository _userRepository;
+     
 
-        public CalculationService(ICalculationResultRepository calculationResultRepository, ICalculationModule calculationModule, IResultProcessService resultProcessService)
+        public CalculationService(ICalculationResultRepository calculationResultRepository, ICalculationModule calculationModule, IUserRepository userRepository)
         {
             _calculationResultRepository = calculationResultRepository;
             _calculationModule = calculationModule;
-            _resultProcessService = resultProcessService;
+            _userRepository = userRepository;
         }
         public async Task DeleteCalculationById(string id)
         {
@@ -42,7 +43,7 @@ namespace Infrastructure.Services
             return _calculationResultRepository.GetCalculations().Result;
         }
 
-        public async Task StartCalculation(CalculationSettings calculationSettings)
+        public async Task StartCalculation(CalculationSettings calculationSettings, int? userId = null)
         {
             Calculations calculation = new()
             {
@@ -68,7 +69,7 @@ namespace Infrastructure.Services
             };
             Console.WriteLine("Start Calculation");
             calculation.RelayTimeArray = _calculationModule.GetFullTime(calculation);
-            await _calculationResultRepository.AddCalculation(calculation);
+            await _calculationResultRepository.AddCalculation(calculation, userId);
 
             List<CalculationResult> calcResultInitial = new();
             int count = 0;

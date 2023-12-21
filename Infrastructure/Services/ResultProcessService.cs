@@ -35,7 +35,8 @@ namespace Infrastructure.Services
                     HistogramData = histogramData.HistogramData
                 });
             }
-            return resultsProcessed;
+            List<CalculationResultData> sortedList = resultsProcessed.OrderBy(o => o.ImplementationId).ToList();
+            return sortedList;
         }
     }
 }

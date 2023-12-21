@@ -22,7 +22,7 @@ namespace Infrastructure.DAL.Repositories
             _mapper = new Mapper(config);
         }
 
-        public async Task AddCalculation(Calculations calculations)
+        public async Task AddCalculation(Calculations calculations, int? userId = null)
         {
             _context.Calculations.Add(_mapper.Map<CalculationEntity>(calculations));
             await _context.SaveChangesAsync();

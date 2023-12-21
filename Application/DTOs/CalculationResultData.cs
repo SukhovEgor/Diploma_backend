@@ -46,7 +46,7 @@ namespace Application.DTOs
             UROVValue = urovValue;
             ProbabilityValue = probabilityValue;
             UROVTimeArray = urovTimeArray;
-            HistogramData = histogramData;
+            
         }
 
         public CalculationResultData()

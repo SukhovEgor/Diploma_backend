@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -51,6 +52,11 @@ namespace Infrastructure.DAL
         public double StepValue { get; set; }
 
         public double[] RelayTimeArray { get; set; }
+
+        /// <summary>
+        /// Внешний ключ на Id пользователя
+        /// </summary>
+        public UserEntity? User { get; set; }
 
         /// <summary>
         /// Внешний ключ на результаты расчета

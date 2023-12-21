@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.DTOs.Requests;
 using AutoMapper;
 using Domain.CalculationProbability;
 using Domain.ProcessedResult;
@@ -14,7 +15,9 @@ namespace Server
             CreateMap<CalculationResult, CalculationResultDto>();
             CreateMap<ResultProcessed, ProcessedResultDto>().ReverseMap();
             CreateMap<CalculationResultDto, CalculationResultData>().ReverseMap();
-
+            CreateMap<User, UserDto>().ForMember(m => m.Name,
+                    opt => opt.MapFrom(src => $"{src.SurName} {src.Name} {src.LastName}"));
+            CreateMap<User, CreateUserRequest>().ReverseMap();
         }
     }
 }

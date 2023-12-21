@@ -21,6 +21,8 @@ builder.Services.AddScoped<ICalculationResultRepository, CalculationResultReposi
 builder.Services.AddScoped<ICalculationService, CalculationService>();
 builder.Services.AddScoped<ICalculationModule, CalculationModule>();
 builder.Services.AddScoped<IResultProcessService, ResultProcessService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection), ServiceLifetime.Transient);
