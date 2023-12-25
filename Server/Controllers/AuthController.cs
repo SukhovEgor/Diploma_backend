@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Infrastructure.Services;
 
 namespace Server.Controllers
 {
@@ -69,6 +70,14 @@ namespace Server.Controllers
             await _authService.CreateUser(_mapper.Map<CreateUserRequest, User>(user));
             return Ok();
 
+        }
+
+        [HttpDelete]
+        [Route("DeleteUser/{id}")]
+        public async Task<IActionResult> DeleteUserById(string? id)
+        {
+            await _authService.DeleteUserById(id);
+            return Ok();
         }
 
         [Route("whoAmI")]

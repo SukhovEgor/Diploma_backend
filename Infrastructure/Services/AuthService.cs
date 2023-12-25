@@ -32,5 +32,10 @@ namespace Infrastructure.Services
         {
             await _userRepository.CreateUser(user);
         }
+
+        public async Task DeleteUserById(string? id)
+        {
+            await _userRepository.DeleteUserById(id);
+        }
     }
 }

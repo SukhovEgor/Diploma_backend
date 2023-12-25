@@ -41,5 +41,19 @@ namespace Infrastructure.DAL.Repositories
             await _context.Users.AddAsync(_mapper.Map<UserEntity>(user));
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteUserById(string? id)
+        {
+            UserEntity user = (from users in _context.Users
+                               where users.Id.ToString() == id
+                                               select users).FirstOrDefault();
+            List<CalculationEntity> calculation = (from calculations in _context.Calculations
+                                               where calculations.UserId.ToString() == id
+                                               select calculations).ToList();
+
+            _context.Users.Remove(user);
+            _context.Calculations.RemoveRange(calculation);
+            _context.SaveChanges();
+        }
     }
 }
