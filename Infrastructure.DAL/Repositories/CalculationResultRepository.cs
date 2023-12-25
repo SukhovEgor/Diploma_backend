@@ -22,7 +22,7 @@ namespace Infrastructure.DAL.Repositories
             _mapper = new Mapper(config);
         }
 
-        public async Task AddCalculation(Calculations calculations, int? userId = null)
+        public async Task AddCalculation(Calculations calculations)
         {
             _context.Calculations.Add(_mapper.Map<CalculationEntity>(calculations));
             await _context.SaveChangesAsync();
@@ -50,7 +50,14 @@ namespace Infrastructure.DAL.Repositories
             _context.SaveChanges();
         }
 
-        public async Task<List<Calculations>> GetCalculations()
+        public async Task<List<Calculations>> GetCalculations(int userId)
+        {
+            var calculationsEntity = _context.Calculations.Where(c =>c.UserId == userId).OrderByDescending(c => c.CalculationStart).ToList();
+            List<Calculations> calculations = _mapper.Map<List<Calculations>>(calculationsEntity);
+            return calculations;
+        }
+
+        public async Task<List<Calculations>> GetAllCalculations()
         {
             var calculationsEntity = _context.Calculations.OrderByDescending(c => c.CalculationStart).ToList();
             List<Calculations> calculations = _mapper.Map<List<Calculations>>(calculationsEntity);

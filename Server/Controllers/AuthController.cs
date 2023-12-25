@@ -54,7 +54,7 @@ namespace Server.Controllers
                 var jwt = new JwtSecurityToken(issuer: "MyAuthServer", audience: "MyAuthClient", claims: claims, expires: DateTime.UtcNow.Add(TimeSpan.FromDays(3650)),
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("mysupersecret_secretkey!123")), SecurityAlgorithms.HmacSha256));
                 var token = new JwtSecurityTokenHandler().WriteToken(jwt);
-                return Ok(new LoginResponse($"{user.SurName} {user.Name} {user.LastName}", token));
+                return Ok(new LoginResponse($"{user.SurName} {user.Name} {user.LastName}", token, user.Id));
             }
             catch (Exception ex)
             {

@@ -11,6 +11,8 @@ namespace Domain.CalculationProbability
         /// </summary>
         public Guid Id { get; set; } = Guid.NewGuid();
 
+        public int UserId { get; set; }
+
         /// <summary>
         /// Название расчета
         /// </summary>

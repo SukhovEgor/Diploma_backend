@@ -10,11 +10,13 @@ namespace Application.DTOs.Responce
     {
         public string Name { get; set; }
         public string Token { get; set; }
+        public int Id { get; set; }
 
-        public LoginResponse(string name, string token)
+        public LoginResponse(string name, string token, int id)
         {
             Name = name;
             Token = token;
+            Id = id;
         }
     }
 }

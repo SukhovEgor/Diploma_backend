@@ -6,7 +6,7 @@
     public class CalculationSettings
     {
         public string Name { get; set; }
-
+        public int UserId { get; set; }
         public double MainRelayTime { get; set; }
         public double IntermediateRelayTime { get; set; }
         public double CircuitBreakerTime { get; set; }

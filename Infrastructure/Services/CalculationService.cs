@@ -36,18 +36,19 @@ namespace Infrastructure.Services
         }
         public Calculations GetCalculationInfoById(string id)
         {
-            return _calculationResultRepository.GetCalculations().Result.First(c => c.Id.ToString() == id);
+            return _calculationResultRepository.GetAllCalculations().Result.First(c => c.Id.ToString() == id);
         }
-        public List<Calculations> GetCalculations()
+        public List<Calculations> GetCalculations(int userId)
         {
-            return _calculationResultRepository.GetCalculations().Result;
+            return _calculationResultRepository.GetCalculations(userId).Result;
         }
 
-        public async Task StartCalculation(CalculationSettings calculationSettings, int? userId = null)
+        public async Task StartCalculation(CalculationSettings calculationSettings)
         {
             Calculations calculation = new()
             {
                 Name = calculationSettings.Name,
+                UserId = calculationSettings.UserId,
                 MainRelayTime = calculationSettings.MainRelayTime / 1000,
                 IntermediateRelayTime = calculationSettings.IntermediateRelayTime / 1000,
                 CircuitBreakerTime = calculationSettings.CircuitBreakerTime / 1000,
@@ -69,7 +70,7 @@ namespace Infrastructure.Services
             };
             Console.WriteLine("Start Calculation");
             calculation.RelayTimeArray = _calculationModule.GetFullTime(calculation);
-            await _calculationResultRepository.AddCalculation(calculation, userId);
+            await _calculationResultRepository.AddCalculation(calculation);
 
             List<CalculationResult> calcResultInitial = new();
             int count = 0;

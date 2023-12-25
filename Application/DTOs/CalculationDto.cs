@@ -11,6 +11,7 @@ namespace Application.DTOs
         /// Уникальный идентификатор расчета
         /// </summary>
         public Guid Id { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Название расчета

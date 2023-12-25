@@ -43,10 +43,10 @@ namespace Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetCalculations")]
-        public async Task<IActionResult> GetCalculations()
+        [Route("GetCalculations/{userId}")]
+        public async Task<IActionResult> GetCalculations(int userId)
         {
-            var calculations = _calculationService.GetCalculations();
+            var calculations = _calculationService.GetCalculations(userId);
             var response = new GetCalculationsResponse
             {
                 CalculationAmount = calculations.Count,
