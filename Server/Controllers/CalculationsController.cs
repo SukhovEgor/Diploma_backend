@@ -3,7 +3,6 @@ using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.CalculationProbability;
-using Domain.ProcessedResult;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -75,7 +74,6 @@ namespace Server.Controllers
 
             var response = new CalculationResultInfoResponse()
             {
-                MainTimeHistogramData = _resultProcessService.Processing(calculations),
                 CalculationResults = _resultProcessService.Processing
                 (_mapper.Map<List<CalculationResult>, List<CalculationResultDto>>(calculationResultsInfo))
             };

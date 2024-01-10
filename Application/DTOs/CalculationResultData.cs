@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.CalculationProbability;
-using Domain.ProcessedResult;
 
 namespace Application.DTOs
 {
@@ -35,11 +34,10 @@ namespace Application.DTOs
         /// </summary>
         public double[] UROVTimeArray { get; set; }
 
-        public List<HistogramData>? HistogramData { get; set; } = new();
-
+       
         
         public CalculationResultData(int implementationId,
-            double urovValue, double probabilityValue, double[] urovTimeArray, List<HistogramData> histogramData)
+            double urovValue, double probabilityValue, double[] urovTimeArray)
         {
             //CalculationId = calculationId;
             ImplementationId = implementationId;

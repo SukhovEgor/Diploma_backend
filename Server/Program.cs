@@ -20,7 +20,6 @@ builder.Services.AddAutoMapper(assembly);
 builder.Services.AddScoped<ICalculationResultRepository, CalculationResultRepository>();
 builder.Services.AddScoped<ICalculationService, CalculationService>();
 builder.Services.AddScoped<ICalculationModule, CalculationModule>();
-builder.Services.AddScoped<IResultProcessService, ResultProcessService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
