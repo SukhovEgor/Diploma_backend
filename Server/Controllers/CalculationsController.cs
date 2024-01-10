@@ -13,13 +13,11 @@ namespace Server.Controllers
     public class CalculationsController : ControllerBase
     {
         private readonly ICalculationService _calculationService;
-        private readonly IResultProcessService _resultProcessService;
         private readonly IMapper _mapper;
 
-        public CalculationsController(ICalculationService calculationService, IResultProcessService resultProcessService, IMapper mapper)
+        public CalculationsController(ICalculationService calculationService, IMapper mapper)
         {
             _calculationService = calculationService;
-            _resultProcessService = resultProcessService;
             _mapper = mapper;
         }
         /// <summary>
@@ -74,8 +72,7 @@ namespace Server.Controllers
 
             var response = new CalculationResultInfoResponse()
             {
-                CalculationResults = _resultProcessService.Processing
-                (_mapper.Map<List<CalculationResult>, List<CalculationResultDto>>(calculationResultsInfo))
+                CalculationResults = _mapper.Map<List<CalculationResult>, List<CalculationResultDto>>(calculationResultsInfo)
             };
             return Ok(response);
         }

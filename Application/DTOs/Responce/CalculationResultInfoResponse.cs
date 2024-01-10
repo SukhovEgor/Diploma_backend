@@ -8,6 +8,6 @@ namespace Application.DTOs.Responce
 {
     public class CalculationResultInfoResponse
     {
-        public List<CalculationResultData> CalculationResults { get; set; } = new();
+        public List<CalculationResultDto> CalculationResults { get; set; } = new();
     }
 }
