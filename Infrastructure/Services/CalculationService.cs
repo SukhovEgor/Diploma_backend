@@ -9,14 +9,14 @@ namespace Infrastructure.Services
     {
         private readonly ICalculationResultRepository _calculationResultRepository;
         private readonly ICalculationModule _calculationModule;
-        private readonly IUserRepository _userRepository;
+        
      
 
-        public CalculationService(ICalculationResultRepository calculationResultRepository, ICalculationModule calculationModule, IUserRepository userRepository)
+        public CalculationService(ICalculationResultRepository calculationResultRepository, ICalculationModule calculationModule)
         {
             _calculationResultRepository = calculationResultRepository;
             _calculationModule = calculationModule;
-            _userRepository = userRepository;
+            
         }
         public async Task DeleteCalculationById(string id)
         {
