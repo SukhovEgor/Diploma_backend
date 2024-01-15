@@ -52,7 +52,7 @@ namespace Infrastructure.DAL
         public double FinalValueUROV { get; set; }
         public double StepValue { get; set; }
 
-        public double[] RelayTimeArray { get; set; }
+        public double[]? RelayTimeArray { get; set; }
 
         /// <summary>
         /// Внешний ключ на Id пользователя

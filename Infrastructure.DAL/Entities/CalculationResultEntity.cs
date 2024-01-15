@@ -34,7 +34,7 @@ namespace Infrastructure.DAL
         /// <summary>
         /// Массив сличайных времен срабатывания УРОВ
         /// </summary>
-        public double[] UROVTimeArray { get; set; }
+        public double[]? UROVTimeArray { get; set; }
 
         /// <summary>
         /// Ссылка на расчет

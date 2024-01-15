@@ -70,5 +70,14 @@ namespace UnitTests
 
             Assert.True(result.IsCompletedSuccessfully);
         }
+
+        [Fact]
+        public async Task DeleteUserById_ShouldReturnTrue()
+        {
+            var service = new AuthService(_userRepositoryMock.Object);
+            var result = service.DeleteUserById("1");
+
+            Assert.True(result.IsCompletedSuccessfully);
+        }
     }
 }
