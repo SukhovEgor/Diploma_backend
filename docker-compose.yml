@@ -1,0 +1,32 @@
+version: '3db.4'
+
+services:
+  server:
+    image: ${DOCKER_REGISTRY-}server
+    build:
+      context: .
+      dockerfile: Server/Dockerfile
+      
+
+  client:
+    image: client
+    build:
+      context: C:\Users\sukho\diploma_frontend
+      dockerfile: Dockerfile
+
+  proxy: 
+    image: nginx:mainline
+
+  postgres_db:
+      image: postgres:latest
+      restart: always
+      environment:
+        POSTGRES_DB: "Diploma_database"
+        POSTGRES_USER: "postgres"
+        POSTGRES_PASSWORD: "qwerty"
+        PGGPORT : 5433
+
+  
+
+
+
