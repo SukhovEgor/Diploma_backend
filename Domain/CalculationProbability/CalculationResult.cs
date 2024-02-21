@@ -34,7 +34,7 @@ namespace Domain.CalculationProbability
         public double[] UROVTimeArray { get; set; }
 
         public CalculationResult(Guid calculationId, int implementationId,
-            double urovValue, double probabilityValue, double[] urovTimeArray)
+           double urovValue, double probabilityValue, double[] urovTimeArray)
         {
             CalculationId = calculationId;
             ImplementationId = implementationId;

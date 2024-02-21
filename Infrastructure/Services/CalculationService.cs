@@ -79,9 +79,8 @@ namespace Infrastructure.Services
                 timeUROV >= calculation.FinalValueUROV; timeUROV -= step)
             {
                 count++;
+                timeUROV = Math.Round(timeUROV, 4);
                 var probability = _calculationModule.GetProbability(calculation, timeUROV);
-                Console.WriteLine($"Вероятность излишней работы УРОВ " +
-                    $"{Math.Round(100 * probability, 2)}, при выдержке времени {Math.Round(1000 * timeUROV, 2)}");
                 var UROVTimeArray = _calculationModule.GetTimeUROV(calculation, timeUROV);
                 var calcResult = new CalculationResult(calculation.Id, count, Math.Round(timeUROV, 3), Math.Round(probability, 6), UROVTimeArray);
                 calcResultInitial.Add(calcResult);

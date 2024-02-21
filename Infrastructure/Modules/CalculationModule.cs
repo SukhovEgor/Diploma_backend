@@ -4,7 +4,6 @@ using Domain.CalculationProbability;
 
 namespace Application.UseCases
 {
-    // TODO: Убрать потом Вывод в консоль
     public class CalculationModule : ICalculationModule
     {
         public CalculationModule()
@@ -80,26 +79,24 @@ namespace Application.UseCases
                 calculationSettings.CircuitBreakerTime +
                 calculationSettings.AdditionalTime;
 
-            Console.WriteLine($"totalMean: {totalMean}");
-
             double UROVMean = 
                 calculationSettings.MainRelayTime +
                 calculationSettings.IntermediateRelayTime +
                 calculationSettings.AdditionalUROVTime + timeUROV;
-            Console.WriteLine($"UROVMean: {UROVMean}");
+            
 
             double totalStandartDev =
                 calculationSettings.MainRelayTime * calculationSettings.StdDevMainRelayTime +
                 calculationSettings.IntermediateRelayTime * calculationSettings.StdDevIntermediateRelayTime +
                 calculationSettings.CircuitBreakerTime * calculationSettings.StdDevCircuitBreakerTime +
                 calculationSettings.AdditionalTime * calculationSettings.StdDevAdditionalTime;
-            Console.WriteLine($"totalStandartDev: {totalStandartDev}");
+           
 
             double UROVStandartDev = 
                 calculationSettings.MainRelayTime * calculationSettings.StdDevMainRelayTime +
                 calculationSettings.IntermediateRelayTime * calculationSettings.StdDevIntermediateRelayTime +
                 calculationSettings.AdditionalUROVTime * calculationSettings.StdDevAdditionalUROVTime;
-            Console.WriteLine($"UROVStandartDev: {UROVStandartDev}");
+            
 
             double logarithm = Math.Log(Math.Pow(UROVStandartDev, 2) /
                 Math.Pow(totalStandartDev, 2));
@@ -122,9 +119,6 @@ namespace Application.UseCases
                 UROVMean * sqrtTotalStandartDev -
                 totalStandartDev * UROVStandartDev * totalSqrt)
                 / substractionSqrtStandartDev;
-
-            Console.WriteLine($"x1: {x1}");
-            Console.WriteLine($"x2: {x2}");
 
             double positive = 1000000;
             double negative = -1000000;
@@ -154,35 +148,6 @@ namespace Application.UseCases
                 (standartDev * Math.Sqrt(2 * Math.PI)), startPoint, endPoint, 1e-5);
             return composite;
         }
-        /*
-        public void TimeUROV(CalculationSettingsRequest calculationSettings)
-        {
-            var zRandom = new GaussRandom();
-            double[] timeUROVArr = new double[calculationSettings.ImplementationQuantity];
-            double[] mainRelayTimeArr = MainRelayTime(calculationSettings);
-
-            var step = calculationSettings.StepValue;
-
-            for (var timeUROV = calculationSettings.InitialValueUROV;
-                timeUROV >= calculationSettings.FinalValueUROV; timeUROV -= step)
-            {
-                var probability = GetProbability(calculationSettings, timeUROV);
-                Console.WriteLine($"Вероятность излишней работы УРОВ " +
-                    $"{Math.Round(100 * probability, 2)}, при выдержке времени {Math.Round(1000 * timeUROV, 2)}");
-                for (int i = 0; i < calculationSettings.ImplementationQuantity; i++)
-                {
-                    double tmpTime =
-                        zRandom.Next(calculationSettings.InputTime,
-                            calculationSettings.InputTime *
-                            calculationSettings.StdDevInputTime)
-                        + zRandom.Next(calculationSettings.AdditionalTime,
-                            calculationSettings.AdditionalTime *
-                            calculationSettings.StdDevAdditionalTime);
-
-                    timeUROVArr[i] = Math.Round(mainRelayTimeArr[i] + tmpTime + timeUROV, 6); ;
-                }
-
-            }
-        }*/
+       
     }
 }
