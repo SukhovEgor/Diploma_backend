@@ -38,7 +38,7 @@ namespace Infrastructure.DAL
         public double InputTime { get; set; }
 
         /// <summary>
-        /// Стандартное отклонение
+        /// Стандартнsые отклонения
         /// </summary>
         public double StdDevMainRelayTime { get; set; }
         public double StdDevIntermediateRelayTime { get; set; }
